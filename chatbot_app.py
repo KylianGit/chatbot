@@ -1,9 +1,16 @@
 import os
 import streamlit as st
 from mistralai import Mistral
-import config
 
-client = Mistral(api_key=config.api_key)
+# Récupérer la clé API à partir de secrets.toml
+api_key = st.secrets["general"]["API_KEY"]
+
+# Vérifier si la clé est bien chargée, sinon afficher une erreur
+if api_key is None:
+    st.error("Erreur : Clé API non trouvée dans les secrets")
+
+client = Mistral(api_key=api_key)
+
 
 model = "mistral-large-latest"
 
